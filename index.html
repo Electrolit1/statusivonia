@@ -1,80 +1,132 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Status | Ivonia</title>
-  <link rel="icon" type="image/png" href="ivonia.png">
+  <link rel="icon" type="image/png" href="ivonia.png" />
+
   <style>
-    body {
-      background: linear-gradient(135deg, #0e0e10, #1b1b1d);
-      color: white;
+    * {
+      box-sizing: border-box;
       font-family: "Poppins", sans-serif;
-      text-align: center;
-      height: 100vh;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #0b0b0c 0%, #0e0e10 100%);
+      color: #fff;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    header {
+      position: absolute;
+      top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    header img {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(90deg, #00ff88, #00b3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin: 0;
     }
 
     .card {
-      background: #151518;
-      padding: 30px 40px;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(0, 255, 150, 0.2);
+      background: rgba(20, 20, 25, 0.9);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.15);
+      padding: 40px 30px;
       max-width: 400px;
       width: 90%;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    h1 {
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 35px rgba(0, 255, 136, 0.25);
+    }
+
+    .card h2 {
+      font-size: 1.6rem;
       color: #00ff88;
-      font-size: 2rem;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     #status {
-      font-size: 1.2rem;
-      margin: 15px 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
 
     .ip {
-      background: #222;
-      padding: 10px;
-      border-radius: 8px;
+      margin-top: 15px;
+      background: #121214;
+      border-radius: 10px;
+      padding: 8px 15px;
       font-family: monospace;
-      margin-top: 10px;
-      color: #00ffcc;
+      color: #00ffee;
+      display: inline-block;
     }
 
-    footer {
+    .footer {
       margin-top: 40px;
-      color: #888;
       font-size: 0.9rem;
+      color: #aaa;
     }
 
-    a {
+    .footer a {
       color: #00ff88;
       text-decoration: none;
     }
 
-    a:hover {
+    .footer a:hover {
       text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      header img {
+        width: 45px;
+        height: 45px;
+      }
+
+      .card {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <img src="ivonia.png" alt="Ivonia Logo" />
+    <h1>Ivonia Network</h1>
+  </header>
+
   <div class="card">
-    <h1>🟢 Estado del Servidor</h1>
+    <h2>Estado del Servidor</h2>
     <div id="status">Cargando...</div>
-    <div class="ip">IP: ivonia.us<br>Puerto: 20463</div>
+    <div class="ip">IP: ivonia.us | Puerto: 20463</div>
   </div>
 
-  <footer>
+  <div class="footer">
     <p>Hecho con 💚 por Ivonia Network</p>
-    <a href="https://ivonia.us">Volver al inicio</a>
-  </footer>
+    <a href="https://ivonia.us">Volver a la página principal</a>
+  </div>
 
   <script>
     const ip = "ivonia.us";
@@ -88,12 +140,12 @@
 
         if (data.online) {
           statusDiv.innerHTML = `
-            🟢 En línea<br>
+            🟢 <b>En línea</b><br>
             Jugadores: ${data.players.online} / ${data.players.max}<br>
             Versión: ${data.version}
           `;
         } else {
-          statusDiv.innerHTML = "🔴 Servidor apagado";
+          statusDiv.innerHTML = "🔴 <b>Servidor apagado</b>";
         }
       } catch (err) {
         document.getElementById("status").innerHTML = "⚠️ Error al obtener estado";
@@ -101,7 +153,7 @@
     }
 
     checkStatus();
-    setInterval(checkStatus, 60000); // se actualiza cada 1 minuto
+    setInterval(checkStatus, 60000);
   </script>
 </body>
 </html>
