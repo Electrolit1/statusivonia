@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status | Ivonia</title>
+  <link rel="icon" type="image/png" href="ivonia.png">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0e0e10, #1b1b1d);
+      color: white;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .card {
+      background: #151518;
+      padding: 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(0, 255, 150, 0.2);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    h1 {
+      color: #00ff88;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    #status {
+      font-size: 1.2rem;
+      margin: 15px 0;
+    }
+
+    .ip {
+      background: #222;
+      padding: 10px;
+      border-radius: 8px;
+      font-family: monospace;
+      margin-top: 10px;
+      color: #00ffcc;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: #00ff88;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🟢 Estado del Servidor</h1>
+    <div id="status">Cargando...</div>
+    <div class="ip">IP: ivonia.us<br>Puerto: 20463</div>
+  </div>
+
+  <footer>
+    <p>Hecho con 💚 por Ivonia Network</p>
+    <a href="https://ivonia.us">Volver al inicio</a>
+  </footer>
+
+  <script>
+    const ip = "ivonia.us";
+    const port = 20463;
+
+    async function checkStatus() {
+      try {
+        const res = await fetch(`https://api.mcsrvstat.us/2/${ip}:${port}`);
+        const data = await res.json();
+        const statusDiv = document.getElementById("status");
+
+        if (data.online) {
+          statusDiv.innerHTML = `
+            🟢 En línea<br>
+            Jugadores: ${data.players.online} / ${data.players.max}<br>
+            Versión: ${data.version}
+          `;
+        } else {
+          statusDiv.innerHTML = "🔴 Servidor apagado";
+        }
+      } catch (err) {
+        document.getElementById("status").innerHTML = "⚠️ Error al obtener estado";
+      }
+    }
+
+    checkStatus();
+    setInterval(checkStatus, 60000); // se actualiza cada 1 minuto
+  </script>
+</body>
+</html>
