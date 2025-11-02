@@ -7,7 +7,7 @@
   <meta name="description" content="Estado del servidor de Ivonia Network. Comprueba si el servidor está en línea y cuántos jugadores hay conectados.">
   <title>Status | Ivonia Network</title>
 
-  <!-- ✅ Favicon (icono pequeño del navegador) -->
+  <!-- ✅ Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="ivonia.png" />
   <link rel="apple-touch-icon" href="ivonia.png" />
   <link rel="shortcut icon" href="ivonia.png" type="image/png" />
@@ -50,6 +50,27 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin: 0;
+    }
+
+    /* 🔸 Cartel de mensaje personalizado */
+    .alerta {
+      background: linear-gradient(90deg, #ffaa00cc, #ff7700cc);
+      color: #111;
+      padding: 12px 25px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 0 20px rgba(255, 170, 0, 0.25);
+      margin-bottom: 25px;
+      max-width: 400px;
+      width: 90%;
+      backdrop-filter: blur(5px);
+      animation: aparecer 0.6s ease;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .card {
@@ -116,6 +137,11 @@
       .card {
         padding: 30px 20px;
       }
+
+      .alerta {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+      }
     }
   </style>
 </head>
@@ -124,6 +150,11 @@
     <img src="ivonia.png" alt="Logo Ivonia">
     <h1>Ivonia Network</h1>
   </header>
+
+  <!-- 🔸 Cartel de estado personalizable -->
+  <div class="alerta" id="mensaje-status">
+    🛠️ Estamos en mantenimiento. Volvemos pronto.
+  </div>
 
   <div class="card">
     <h2>Estado del Servidor</h2>
@@ -161,6 +192,10 @@
 
     checkStatus();
     setInterval(checkStatus, 60000);
+
+    /* Puedes ocultar el cartel así:
+       document.getElementById("mensaje-status").style.display = "none";
+    */
   </script>
 </body>
 </html>
