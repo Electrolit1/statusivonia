@@ -3,158 +3,136 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0b" />
-  <meta name="description" content="Estado del servidor de Ivonia Network. Comprueba si el servidor está en línea, su versión y los jugadores conectados." />
+  <meta name="theme-color" content="#0c0c0d">
+  <meta name="description" content="Estado del servidor de Ivonia Network. Comprueba si el servidor está en línea y cuántos jugadores hay conectados.">
   <title>Status | Ivonia Network</title>
   <link rel="icon" type="image/png" href="ivonia.png" />
-  
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body {
       margin: 0;
-      background: radial-gradient(circle at top, #0b0b0b 0%, #111 100%);
-      color: #f4f4f4;
-      min-height: 100vh;
+      background: #0c0c0d;
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      height: 100vh;
       text-align: center;
     }
 
     header {
       position: absolute;
-      top: 30px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 40px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 15px;
     }
 
     header img {
-      width: 58px;
-      height: 58px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.06);
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
     }
 
     header h1 {
-      margin: 0;
-      font-size: 1.7rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, #ffb400, #ff7700);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .alerta {
-      background: linear-gradient(90deg, #ffb400cc, #ff7700cc);
-      color: #111;
-      padding: 12px 26px;
-      border-radius: 12px;
+      font-size: 1.8rem;
       font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 25px;
-      box-shadow: 0 0 20px rgba(255, 180, 0, 0.2);
-      animation: fadeIn 0.6s ease;
+      color: #f5c16c;
+      margin: 0;
     }
 
     .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 35px 25px;
+      background: #141414;
+      border: 1px solid rgba(255, 204, 102, 0.2);
+      border-radius: 18px;
+      padding: 40px 35px;
       max-width: 420px;
       width: 90%;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      transition: transform .25s ease, box-shadow .25s ease;
+      box-shadow: 0 0 20px rgba(255, 204, 102, 0.05);
       backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 14px 50px rgba(255,180,0,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 0 25px rgba(255, 204, 102, 0.15);
     }
 
     .card h2 {
-      margin-top: 0;
-      font-size: 1.6rem;
-      color: #ffb400;
-      font-weight: 700;
-      margin-bottom: 12px;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #ffcc66;
+      margin-bottom: 20px;
     }
 
     #status {
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: #ddd;
+      margin-bottom: 20px;
       line-height: 1.6;
-      margin-bottom: 10px;
     }
 
     .ip {
-      background: rgba(255,255,255,0.04);
-      padding: 10px 18px;
+      background: #1c1c1c;
       border-radius: 10px;
+      padding: 8px 15px;
       font-family: monospace;
-      color: #ffb85c;
-      font-weight: 600;
+      color: #ffcc66;
       display: inline-block;
-      box-shadow: inset 0 0 8px rgba(255,180,0,0.1);
     }
 
     .footer {
-      margin-top: 40px;
-      color: #aaa;
+      margin-top: 45px;
       font-size: 0.9rem;
+      color: #888;
     }
 
     .footer a {
-      color: #ffb400;
+      color: #ffcc66;
       text-decoration: none;
-      transition: color 0.3s;
-      font-weight: 600;
+      transition: 0.3s;
     }
 
     .footer a:hover {
-      color: #ffcc66;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+      color: #ffe699;
+      text-decoration: underline;
     }
 
     @media (max-width: 600px) {
-      header { flex-direction: column; top: 15px; }
-      header img { width: 52px; height: 52px; }
-      header h1 { font-size: 1.4rem; }
-      .alerta { font-size: 0.9rem; padding: 10px 18px; }
+      header img {
+        width: 45px;
+        height: 45px;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      .card {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
-
 <body>
   <header>
     <img src="ivonia.png" alt="Logo Ivonia">
     <h1>Ivonia Network</h1>
   </header>
 
-  <div class="alerta" id="mensaje-status">
-    ⚙️ Actualmente realizando mantenimiento en Survival 1.21
-  </div>
-
   <div class="card">
     <h2>Estado del Servidor</h2>
-    <div id="status">Cargando información...</div>
+    <div id="status">Cargando...</div>
     <div class="ip">IP: mc.ivonia.us</div>
   </div>
 
   <div class="footer">
-    <a href="https://www.ivonia.us">⬅️ Volver a la página principal</a>
+    <a href="https://www.ivonia.us/">Volver a la página principal</a>
   </div>
 
   <script>
@@ -168,15 +146,15 @@
 
         if (data.online) {
           statusDiv.innerHTML = `
-            🟢 <b>Servidor en línea</b><br>
+            🟢 <b>En línea</b><br>
             Jugadores: ${data.players.online} / ${data.players.max}<br>
             Versión: ${data.version}
           `;
         } else {
-          statusDiv.innerHTML = "🔴 <b>Servidor fuera de línea</b>";
+          statusDiv.innerHTML = "🔴 <b>Servidor apagado</b>";
         }
-      } catch {
-        document.getElementById("status").innerHTML = "⚠️ Error al conectar con la API";
+      } catch (err) {
+        document.getElementById("status").innerHTML = "⚠️ Error al obtener estado";
       }
     }
 
